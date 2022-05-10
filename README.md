@@ -226,6 +226,7 @@ There are two steps:
         --------
         236896
         (1 row)
+       
        ```
 
     1. This query shows the number of webpages loaded / hour:
@@ -236,7 +237,7 @@ There are two steps:
         -----------+--------+---------------+----------+--------+------------------------
          1 |  10301 |          9933 |     9585 |   8701 | 2022-05-10 02:00:00+00
          5 | 224626 |        217223 |   199426 | 131910 | 2022-05-10 01:00:00+00
-(2 rows)
+        (2 rows)
        ```
 
     1. This query shows the hostnames that you have downloaded the most webpages from:
