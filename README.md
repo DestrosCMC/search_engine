@@ -213,7 +213,7 @@ There are two steps:
 
 1. Edit this README file to contain the RUM query you created above right here:
     ```
-    CREATE INDEX ...
+    CREATE INDEX metahtml_idx_rum ON metahtml USING rum(content);
     ```
 
 1. Edit this README file with the results of the following queries in psql.
@@ -222,16 +222,94 @@ There are two steps:
     1. This query shows the total number of webpages loaded:
        ```
        select count(*) from metahtml;
+        count
+        --------
+        236896
+        (1 row)
        ```
 
     1. This query shows the number of webpages loaded / hour:
        ```
        select * from metahtml_rollup_insert order by insert_hour desc limit 100;
+       
+        hll_count |  url   | hostpathquery | hostpath |  host  |      insert_hour
+        -----------+--------+---------------+----------+--------+------------------------
+         1 |  10301 |          9933 |     9585 |   8701 | 2022-05-10 02:00:00+00
+         5 | 224626 |        217223 |   199426 | 131910 | 2022-05-10 01:00:00+00
+(2 rows)
        ```
 
     1. This query shows the hostnames that you have downloaded the most webpages from:
        ```
        select * from metahtml_rollup_host order by hostpath desc limit 100;
+       
+        url | hostpathquery | hostpath |              host
+        -----+---------------+----------+---------------------------------
+          70 |            70 |       70 | net,tiexue,bbs)
+          69 |            69 |       69 | com,tripadvisor,no)
+          65 |            65 |       65 | org,wikipedia,en)
+          64 |            64 |       64 | com,cymax)
+          74 |            74 |       61 | com,mlb)
+          60 |            60 |       60 | net,blogmarks)
+          59 |            59 |       59 | de,tripadvisor)
+          54 |            54 |       54 | com,popsugar)
+          52 |            52 |       52 | com,grouprecipes)
+          52 |            52 |       52 | com,thestreet)
+          51 |            51 |       51 | com,rentalhouses)
+          51 |            51 |       51 | com,agoda)
+          51 |            51 |       51 | com,threadless,keziacole)
+          50 |            50 |       50 | com,bandsintown)
+          50 |            50 |       50 | com,cdw)
+          49 |            49 |       49 | com,gameboomers)
+          49 |            49 |       49 | com,apartmenttherapy)
+          48 |            48 |       48 | com,sears)
+          47 |            47 |       47 | pt,encycolorpedia)
+          46 |            46 |       46 | com,scribd)
+          46 |            46 |       46 | com,epicsports,football)
+          46 |            46 |       46 | com,ritetag)
+          46 |            46 |       46 | com,clker)
+          45 |            45 |       45 | cl,tripadvisor)
+          44 |            44 |       44 | com,espncricinfo)
+          57 |            57 |       44 | edu,illinois,carli,collections)
+          44 |            44 |       44 | com,simon)
+          44 |            44 |       44 | com,imgur)
+          43 |            43 |       43 | com,foodily)
+          43 |            43 |       43 | com,theguardian)
+          43 |            43 |       42 | com,trulia)
+          42 |            42 |       42 | com,funnyordie)
+          42 |            42 |       42 | br,com,tripadvisor)
+          42 |            42 |       42 | uk,co,huffingtonpost)
+          41 |            41 |       41 | com,songlyrics)
+          41 |            41 |       41 | com,smugmug,photos)
+          41 |            41 |       41 | com,pandora)
+          41 |            41 |       41 | org,denverlibrary,digital)
+          41 |            41 |       40 | com,dafont)
+          40 |            40 |       40 | com,seatgeek)
+          39 |            39 |       39 | com,gamefaqs)
+          39 |            39 |       39 | org,wikipedia,es)
+          39 |            39 |       39 | com,tripadvisor)
+          41 |            41 |       39 | com,legacy)
+          39 |            39 |       39 | id,co,tripadvisor)
+          38 |            38 |       38 | eg,com,tripadvisor)
+          38 |            38 |       38 | com,oracle,docs)
+          38 |            38 |       38 | com,scribdassets,imgv2-2)
+          38 |            38 |       38 | com,engadget)
+          38 |            38 |       38 | com,steepster)
+          38 |            38 |       37 | com,dailypuppy)
+          36 |            36 |       36 | com,newgrounds)
+          36 |            36 |       36 | com,upi)
+          36 |            36 |       36 | org,wikipedia,it)
+          35 |            35 |       35 | org,wikipedia,de)
+          35 |            35 |       35 | org,wikidata)
+          35 |            35 |       35 | com,dailymotion)
+          35 |            35 |       35 | org,wiktionary,en)
+          35 |            35 |       35 | uk,co,expedia)
+          35 |            35 |       35 | com,iheart)
+          36 |            36 |       35 | com,dailykos)
+          35 |            35 |       35 | com,weheartit)
+          36 |            36 |       35 | com,snagajob)
+          35 |            35 |       35 | me,torrentdownloads)
+
        ```
 
 1. Take a screenshot of an interesting search result.
